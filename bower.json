@@ -1,9 +1,10 @@
 {
-  "name": "angular2-boilerplate",
-  "description": "An easy to use Angular 2 boilerplate for Angular 2 RC1",
+  "name": "fjandinn",
+  "description": "Input description here",
   "main": "gulpfile.js",
   "authors": [
-    "Cory Forward"
+    "Erlend Tobiassen",
+    "Fredrik Sandvær"
   ],
   "license": "MIT",
   "keywords": [

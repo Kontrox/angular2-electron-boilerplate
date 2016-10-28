@@ -1,5 +1,5 @@
 {
-  "name": "angular2-boilerplate",
+  "name": "fjandinn",
   "version": "1.0.0",
   "main": "gulpfile.js",
   "scripts": {
@@ -45,7 +45,7 @@
     "Angular2",
     "typescript"
   ],
-  "author": "Cory Forward",
+  "author": "Erlend Tobiassen & Fredrik Sandvær",
   "license": "MIT",
-  "description": "An easy to use Angular 2 boilerplate for Angular 2 RC1"
+  "description": "Input description here"
 }

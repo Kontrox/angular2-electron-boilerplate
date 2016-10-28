@@ -1,12 +1,11 @@
-Angular 2 Electron Boilerplate
+Fjandinn
 =====================
 
-An easy to use boilerplate for Angular 2 applications. This includes all of the necesssary features for using Angular 2 as of the RC5 update, including forms, NgModule and an easy to use development flow.
 
 Install
 =======
 
-Installing this boilerplate is extremely simple!
+Installing this is extremely simple!
 
 `git clone https://github.com/Kontrox/fjandinn`
 
@@ -19,7 +18,7 @@ That's it! You are now ready for development.
 Development Tools
 =================
 
-This boilerplate utilizes a few packages to ensure an automated and easy to use workflow with Angular 2. Here is a list of them and their purposes: 
+This boilerplate utilizes a few packages to ensure an automated and easy to use workflow with Angular 2. Here is a list of them and their purposes:
 - TypeScript: The language used in this project's development
 - tsconfig.json: Configuration for our TypeScript code.
 - typings.json: Typings used within the code, such as core-js
