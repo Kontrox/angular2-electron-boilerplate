@@ -8,9 +8,9 @@ Install
 
 Installing this boilerplate is extremely simple!
 
-`git clone https://github.com/c4wrd/angular2-electron-boilerplate`
+`git clone https://github.com/Kontrox/fjandinn`
 
-`cd angular2-electron-boilerplate`
+`cd fjandinn`
 
 `npm install`
 
