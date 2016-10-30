@@ -7,6 +7,7 @@ const BrowserWindow = electron.BrowserWindow;
 const ipcMain = electron.ipcMain;
 
 var mainWindow : Electron.BrowserWindow = null;
+var cardWindow : Electron.BrowserWindow = null;
 
 app.on('window-all-closed', () => {
   if (process.platform != 'darwin') {
