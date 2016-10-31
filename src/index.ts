@@ -7,6 +7,7 @@ const BrowserWindow = electron.BrowserWindow;
 const ipcMain = electron.ipcMain;
 
 var mainWindow : Electron.BrowserWindow = null;
+var characterWindow : Electron.BrowserWindow = null;
 
 app.on('window-all-closed', () => {
   if (process.platform != 'darwin') {
@@ -20,6 +21,12 @@ app.on('ready', () => {
   mainWindow.webContents.openDevTools();
   mainWindow.on('closed', () =>  {
     mainWindow = null;
+  });
+  characterWindow = new BrowserWindow({width: 1500, height: 600});
+  characterWindow.loadURL('file://' + __dirname + '/character.html');
+  //characterWindow.webContents.openDevTools();
+  characterWindow.on('closed', () => {
+    characterWindow = null;
   });
 });
 
