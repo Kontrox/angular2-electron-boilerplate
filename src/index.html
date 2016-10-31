@@ -1,12 +1,13 @@
 <html>
-  <head>
+
+<head>
     <title>Fjandinn</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
     <!-- 1. Load libraries -->
-     <!-- Polyfill(s) for older browsers -->
+    <!-- Polyfill(s) for older browsers -->
     <script src="assets/vendor/core-js/client/shim.min.js"></script>
     <script src="assets/vendor/zone.js/zone.js"></script>
     <script src="assets/vendor/reflect-metadata/Reflect.js"></script>
@@ -15,11 +16,15 @@
     <script src="systemjs.config.js"></script>
     <script>
         System.set('electron', System.newModule(require('electron')));
-      System.import('app').catch(function(err){ console.error(err); });
+        System.import('app').catch((err) => {
+            console.error(err)
+        })
     </script>
-  </head>
-  <!-- 3. Display the application -->
-  <body>
+</head>
+<!-- 3. Display the application -->
+
+<body>
     <my-app>Loading...</my-app>
-  </body>
+</body>
+
 </html>
