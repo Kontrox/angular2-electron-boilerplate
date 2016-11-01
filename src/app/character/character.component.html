@@ -1,66 +1,23 @@
 <div class="control-group">
- <div class="col-sm-3">
-   <label class="label label-info" for="name">Character name</label>
-   <input class="form-control" id="name" type="text">
- </div>
- <div class="col-sm-1">
-   <label class="label label-info" for="level">Level</label>
-   <input type="text" class="form-control" id="level">
- </div>
- <div class="col-sm-2">
-   <label class="label label-info" for="race">Race</label>
-   <input type="text" class="form-control" id="race">
- </div>
- <div class="col-sm-3">
-   <label class="label label-info" for="gender">Gender</label>
-   <input type="text" class="form-control" id="gender">
- </div>
- <div class="col-sm-3">
-   <label class="label label-info" for="alignment">Alignment</label>
-   <input type="text" class="form-control" id="alignment">
- </div>
-</div>
-<div class="control-group">
-  <div class="col-lg-4">
-    <label class="label label-info" for="class">Class</label>
-    <input class="form-control" id="class" type="text">
-  </div>
-  <div class="col-lg-4">
-    <label class="label label-info" for="paragon">Paragon</label>
-    <input class="form-control" id="paragon" type="text">
-  </div>
-  <div class="col-lg-4">
-    <label class="label label-info" for="destiny">Destiny</label>
-    <input class="form-control" id="destiny" type="text">
+  <div *ngFor="let info of characterHeader; let i = index"  class={{info.column}}>
+    <label class="label label-info">{{info.title}}</label>
+    <input class="form-control" id={{info.title.toLowerCase()}} type="text">
   </div>
 </div>
-<div class="input-group col-sm-1">
-  <span style="width:60px" class="input-group-addon">Str</span>
-  <input class="form-control" id="str" type="text" aria-label="Strength">
-  <span class="input-group-addon">2</span>
+<div style="float: left" class="col-md-2">
+    <div *ngFor="let ability of abilityScores;" class="input-group">
+      <span style="width:51px" class="input-group-addon" title="{{ability.description}}">{{ability.title}}</span>
+      <input id={{ability.title.toLowerCase()}} class="form-control" type="text">
+      <span style="width:45px" class="input-group-addon"></span>
+    </div>
 </div>
-<div class="input-group col-sm-1">
-  <span style="width:60px" class="input-group-addon">Con</span>
-  <input class="form-control" id="con" type="text" aria-label="Constitution">
-  <span class="input-group-addon">2</span>
-</div>
-<div class="input-group col-sm-1">
-  <span style="width:60px" class="input-group-addon">Dex</span>
-  <input class="form-control" id="dex" type="text" aria-label="Dexterity">
-  <span class="input-group-addon">2</span>
-</div>
-<div class="input-group col-sm-1">
-  <span style="width:60px" class="input-group-addon">Int</span>
-  <input class="form-control" id="int" type="text" aria-label="Intelligence">
-  <span class="input-group-addon">2</span>
-</div>
-<div class="input-group col-sm-1">
-  <span style="width:60px" class="input-group-addon">Wis</span>
-  <input class="form-control" id="wis" type="text" aria-label="Wisdom">
-  <span class="input-group-addon">2</span>
-</div>
-<div class="input-group col-sm-1">
-  <span style="width:60px" class="input-group-addon">Cha</span>
-  <input class="form-control" id="cha" type="text" aria-label="Charisma">
-  <span class="input-group-addon">2</span>
+<div style="float: left" class="col-md-6">
+  <div *ngFor="let defense of defenses;" class="input-group">
+    <span id="1" class="input-group-addon" title="{{defense.description}}">{{defense.title}}</span>
+    <input id={{defense.title.toLowerCase()}} class="form-control" type="text" aria-describedby="1">
+    <div style="float: left" *ngFor="let ability of abilityScores;" class="col-md-1">
+      <label class="label label-info">hei</label>
+      <input class="form-control" type="text">
+    </div>
+  </div>
 </div>
