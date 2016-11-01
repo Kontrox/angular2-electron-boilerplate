@@ -6,7 +6,8 @@
         "build": "gulp build",
         "start": "npm run build && electron dist",
         "package": "npm run build && gulp electron:package",
-        "postinstall": "concurrently \"bower install\" \"typings install\""
+        "postinstall": "concurrently \"bower install\" \"typings install\"",
+        "gulp": "gulp"
     },
     "dependencies": {
         "@angular/common": "^2.0.1",
