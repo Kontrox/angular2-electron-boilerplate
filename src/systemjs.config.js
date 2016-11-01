@@ -16,7 +16,6 @@
         map: {
             // our app is within the app folder
             app: 'root:app',
-            character: 'app/character',
             // angular bundles
             '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
             '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
@@ -47,10 +46,6 @@
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
             app: {
-                main: './main.js',
-                defaultExtension: 'js'
-            },
-            character: {
                 main: './main.js',
                 defaultExtension: 'js'
             },
