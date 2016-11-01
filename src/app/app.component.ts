@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { db } from './database/database.module'
+
 const ipcRenderer = require('electron').ipcRenderer;
 
 @Component({
@@ -7,8 +9,6 @@ const ipcRenderer = require('electron').ipcRenderer;
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
-
-
   constructor() {
     ipcRenderer.on("reply", (event, arg) => {
       console.log("Reply was " + arg);
@@ -22,5 +22,4 @@ export class AppComponent {
     console.log("Getestet");
     ipcRenderer.send("message", "tested");
   }
-
 }
