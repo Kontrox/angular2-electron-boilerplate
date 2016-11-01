@@ -1,5 +1,4 @@
-exports.VENDOR_FILES = [
-    {
+exports.VENDOR_FILES = [{
         source: "reflect-metadata",
         files: "Reflect.js"
     },
@@ -22,11 +21,14 @@ exports.VENDOR_FILES = [
     {
         source: "core-js",
         files: "**/*"
+    },
+    {
+        source: "nedb",
+        files: "**/*"
     }
 ]
 
-exports.BOWER_PACKAGES = [
-    {
+exports.BOWER_PACKAGES = [{
         source: "bootstrap",
         files: "dist/**/*"
     },
