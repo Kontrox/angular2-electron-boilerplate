@@ -1,0 +1,27 @@
+a.kinda-link:hover {
+    cursor: pointer;
+}
+
+#container {
+    width: 100%;
+}
+
+#subcontainer {
+    display: table;
+    width: 100%;
+}
+
+#sidebar {
+    width: 20%;
+    height: 100%;
+    background-color: #BD4538;
+    color: white;
+    display: table-cell;
+}
+
+#pagecontainer {
+    width: 80%;
+    display: table-cell;
+    background-color: #FFFFFF;
+    color: black;
+}

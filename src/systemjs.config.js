@@ -50,10 +50,6 @@
                 main: './main.js',
                 defaultExtension: 'js'
             },
-            character: {
-                main: './main.js',
-                defaultExtension: 'js'
-            },
             rxjs: {
                 defaultExtension: 'js'
             },

@@ -1,3 +1,11 @@
 <div class="container">
-    <powers></powers>
+	<div id="subcontainer">
+		<div id="sidebar">
+			<a class='kinda-link' *ngFor='let page of pages' routerLink="/{{page.path}}">{{page.name}}<br/></a>
+		</div>
+		<div id="pagecontainer">
+			<router-outlet></router-outlet>
+		</div>
+	</div>
+	<div id="footer"></div>
 </div>
