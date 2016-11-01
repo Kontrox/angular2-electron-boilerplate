@@ -21,12 +21,6 @@ app.on('ready', () => {
   mainWindow.on('closed', () =>  {
     mainWindow = null;
   });
-  characterWindow = new BrowserWindow({width: 1500, height: 600});
-  characterWindow.loadURL('file://' + __dirname + '/character.html');
-  characterWindow.webContents.openDevTools();
-  characterWindow.on('closed', () => {
-    characterWindow = null;
-  });
 });
 
 ipcMain.on('message', (event, arg) => {
