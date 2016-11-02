@@ -5,15 +5,17 @@ var gulp = require('gulp'),
     electron = require('gulp-atom-electron'),
     symdest = require('gulp-symdest'),
     sass = require('gulp-sass'),
+    merge = require('merge-stream'),
     shell = require('gulp-shell'),
     config = require("./project-config"),
-    runSeq = require('run-sequence');
+    runSeq = require('run-sequence'),
+    flatten = require('flatten2')
 
 /**
  * Cleans our distribution folder
  */
-gulp.task('electron:clean', function () {
-    return del('dist/**/*', {force: true});
+gulp.task('electron:clean', function() {
+    return del('dist/**/*', { force: true });
 });
 
 /**
@@ -23,13 +25,19 @@ gulp.task('electron:clean', function () {
  *  3. Any other remaining files in our `src`
  *     directory
  */
+
+gulp.task('electron:move', ['electron:copy'], () => {
+    flatten('./dist/assets/vendor', { root: true, ignore: '@angular\\\\[^\\\\]+\\\\testing' }, (err, res) => {
+        if (err) console.error(err)
+        if (res) console.log(res)
+    })
+});
+
 gulp.task('electron:copy', () => {
-    var fs_setup = [
-        { // copy assets from our source to distribution
-            from: ['./src/**/*', '!./src/**/*.scss', '!./src/**/*.ts'],
-            to: './dist'
-        }
-    ];
+    var fs_setup = [{ // copy assets from our source to distribution
+        from: ['./src/**/*', '!./src/**/*.scss', '!./src/**/*.ts'],
+        to: './dist'
+    }];
 
     config.VENDOR_FILES.forEach((item) => {
         let SOURCE = item.source;
@@ -41,8 +49,7 @@ gulp.task('electron:copy', () => {
         })
     });
 
-
-    if ( config.BOWER_PACKAGES ) {
+    if (config.BOWER_PACKAGES) {
         config.BOWER_PACKAGES.forEach((item) => {
             let SOURCE = item.source;
             let FILES = SOURCE.concat("/").concat(item.files);
@@ -53,10 +60,13 @@ gulp.task('electron:copy', () => {
             })
         });
     }
+    let stream = merge()
 
-    return fs_setup.map((setup) => {
-        return gulp.src(setup.from).pipe(gulp.dest(setup.to));
+    fs_setup.forEach((setup) => {
+        stream.add(gulp.src(setup.from).pipe(gulp.dest(setup.to)));
     });
+
+    return stream;
 });
 
 /**
@@ -64,7 +74,7 @@ gulp.task('electron:copy', () => {
  * places it in the matching folder hierarchy in
  * the distribution folder.
  */
-gulp.task('electron:transpile:sass', function () {
+gulp.task('electron:transpile:sass', function() {
     gulp.src('./src/**/*.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./dist'));
@@ -75,7 +85,7 @@ gulp.task('electron:transpile:sass', function () {
  * and transpiles edited files and places
  * them in the distribution folder.
  */
-gulp.task("sass:watch", function () {
+gulp.task("sass:watch", function() {
     gulp.watch('./src/**/*.scss', ['electron:transpile:sass']);
 });
 
@@ -88,7 +98,7 @@ gulp.task('electron:transpile:ts', shell.task(['tsc']));
  * Watches our TypeScript files, invoking the `tsc` compiler
  * if changes are detected.
  */
-gulp.task("typescript:watch", function () {
+gulp.task("typescript:watch", function() {
     gulp.watch('./src/**/*.ts', ['electron:transpile:ts']);
 });
 
@@ -96,7 +106,7 @@ gulp.task("typescript:watch", function () {
  * Builds the OSX application and places it in our
  * 'packages' folder
  */
-gulp.task('electron:build:osx', function () {
+gulp.task('electron:build:osx', function() {
     gulp.src(['dist/**/*'])
         .pipe(electron({
             version: '1.3.3',
@@ -109,7 +119,7 @@ gulp.task('electron:build:osx', function () {
  * Builds the Linux application and places it in our
  * 'packages' folder
  */
-gulp.task('electron:build:linux', function () {
+gulp.task('electron:build:linux', function() {
     gulp.src(['dist/**/*'])
         .pipe(electron({
             version: '1.3.3',
@@ -122,7 +132,7 @@ gulp.task('electron:build:linux', function () {
  * Builds the Windows executable file and places it in our
  * 'packages' folder
  */
-gulp.task('electron:build:win', function () {
+gulp.task('electron:build:win', function() {
     gulp.src(['dist/**/*'])
         .pipe(electron({
             version: '1.3.3',
@@ -134,16 +144,15 @@ gulp.task('electron:build:win', function () {
 /**
  * Umbrella task for executing our build
  */
-gulp.task('electron:build', function (done) {
-    return runSeq('electron:clean', 'electron:copy', 'electron:transpile:sass', 'electron:transpile:ts', done);
+gulp.task('electron:build', function(done) {
+    return runSeq('electron:clean', 'electron:move', 'electron:transpile:sass', 'electron:transpile:ts', done);
 });
 
 /**
  * Task for packing our application for OS distribution
  */
 gulp.task('electron:package', (done) => {
-    return runSeq('build',
-        ['electron:build:win', 'electron:build:osx', 'electron:build:linux'], done);
+    return runSeq('build', ['electron:build:win', 'electron:build:osx', 'electron:build:linux'], done);
 });
 
 gulp.task('build', ['electron:build']);

@@ -9,7 +9,6 @@
             // paths serve as alias
             'root:': '',
             'npm:': 'assets/vendor/',
-            'nedblibs:': 'assets/vendor/nedb/node_modules/',
             '*': 'assets/vendor/*',
         },
         // map tells the System loader where to look for things
@@ -30,11 +29,11 @@
             'angular-in-memory-web-api': 'npm:angular-in-memory-web-api',
 
             'nedb': 'nedb/index.js',
-            'async': 'nedblibs:async/lib/async.js',
-            'mkdirp': 'nedblibs:mkdirp/index.js',
-            'underscore': 'nedblibs:underscore/index.js',
-            'minimist': 'nedblibs:minimist/index.js',
-            'binary-search-tree': 'nedblibs:binary-search-tree/index.js',
+            'async': 'async/lib/async.js',
+            'mkdirp': 'mkdirp/index.js',
+            'underscore': 'underscore/index.js',
+            'minimist': 'minimist/index.js',
+            'binary-search-tree': 'binary-search-tree/index.js',
 
             // Node core modules
             "fs": "@node/fs",
