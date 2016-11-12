@@ -27,7 +27,8 @@ gulp.task('config:systemjs', () => {
             let package_cfg = JSON.parse(file.contents.toString(enc))
             let name = package_cfg.name
             if (name != null && !(name in sjs.map)) {
-                let dir = path.join(path.dirname(file.relative), package_cfg.main)
+                let main = package_cfg.main || "index.js"
+                let dir = path.join(path.dirname(file.relative), main)
                             .split(path.sep)
                             .reduce((res, elem) => res + '/' + elem)
 
@@ -65,13 +66,6 @@ gulp.task('electron:clean', function() {
  *  3. Any other remaining files in our `src`
  *     directory
  */
-
-gulp.task('electron:move', ['electron:copy'], () => {
-    flatten('./dist/assets/vendor', { root: true, ignore: '@angular\\/[^\\/]+\\/testing' }, (err, res) => {
-        if (err) console.error(err)
-        if (res) console.log(res)
-    })
-});
 
 gulp.task('electron:copy', () => {
     var fs_setup = [{ // copy assets from our source to distribution
@@ -185,7 +179,7 @@ gulp.task('electron:build:win', function() {
  * Umbrella task for executing our build
  */
 gulp.task('electron:build', function(done) {
-    return runSeq('electron:clean', 'electron:move', 'config:systemjs', 'electron:transpile:sass', 'electron:transpile:ts', done);
+    return runSeq('electron:clean', 'electron:copy', 'config:systemjs', 'electron:transpile:sass', 'electron:transpile:ts', done);
 });
 
 /**
