@@ -9,7 +9,47 @@ var gulp = require('gulp'),
     shell = require('gulp-shell'),
     config = require("./project-config"),
     runSeq = require('run-sequence'),
-    flatten = require('flatten2')
+    flatten = require('flatten2'),
+    through = require('through2'),
+    path = require('path'),
+    Vinyl = require('vinyl')
+
+gulp.task('config:systemjs', () => {
+    let sjs = config.SYSTEMJS
+    let stream = merge()
+
+    let out = gulp.dest('dist')
+    stream.add(out)
+
+    let base = path.join('dist', sjs.paths['npm:'])
+    stream.add(gulp.src(path.join(base, '**', 'package.json'), { base: base })
+        .pipe(through.obj((file, enc, cb) => {
+            let package_cfg = JSON.parse(file.contents.toString(enc))
+            let name = package_cfg.name
+            if (name != null && !(name in sjs.map)) {
+                let dir = path.join(path.dirname(file.relative), package_cfg.main)
+                            .split(path.sep)
+                            .reduce((res, elem) => res + '/' + elem)
+
+                sjs.map[name] = 'npm:' + dir
+            }
+            cb(null, file)
+    })).on('end', () => {
+        let enc = 'utf8'
+        var file = new Vinyl({
+            path: './systemjs.config.js',
+            relative: 'systemjs.config.js',
+            contents: Buffer.from(`
+            (function(global) {
+                System.defaultJSExtensions = true;
+                System.config(${JSON.stringify(sjs, null, 4)});
+            })(this);`, enc)
+        });
+        out.end(file, enc)
+    }));
+
+    return stream
+});
 
 /**
  * Cleans our distribution folder
@@ -145,7 +185,7 @@ gulp.task('electron:build:win', function() {
  * Umbrella task for executing our build
  */
 gulp.task('electron:build', function(done) {
-    return runSeq('electron:clean', 'electron:move', 'electron:transpile:sass', 'electron:transpile:ts', done);
+    return runSeq('electron:clean', 'electron:move', 'config:systemjs', 'electron:transpile:sass', 'electron:transpile:ts', done);
 });
 
 /**

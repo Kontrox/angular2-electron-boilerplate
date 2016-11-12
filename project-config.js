@@ -37,3 +37,41 @@ exports.BOWER_PACKAGES = [{
         files: "web-animations.min.js"
     }
 ]
+
+exports.SYSTEMJS = {
+    paths: {
+        // paths serve as alias
+        'npm:': 'assets/vendor/'
+    },
+    // map tells the System loader where to look for things
+    map: {
+        // our app is within the app folder
+        app: 'app',
+
+        // Node core modules
+        "fs": "@node/fs",
+        "events": "@node/events",
+        "crypto": "@node/crypto",
+        "util": "@node/util",
+        "path": "@node/path",
+
+        //Special snowflakes
+        "rxjs": "npm:rxjs"
+
+        // Dependencies will be loaded by gulp here
+    },
+    // packages tells the System loader how to load when no filename and/or no extension
+    packages: {
+        app: {
+            main: './main.js',
+            defaultExtension: 'js'
+        },
+        rxjs: {
+            defaultExtension: 'js'
+        },
+        'angular-in-memory-web-api': {
+            main: './index.js',
+            defaultExtension: 'js'
+        }
+    }
+}
