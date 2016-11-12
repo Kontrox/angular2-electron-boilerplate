@@ -27,7 +27,7 @@ gulp.task('electron:clean', function() {
  */
 
 gulp.task('electron:move', ['electron:copy'], () => {
-    flatten('./dist/assets/vendor', { root: true, ignore: '@angular\\\\[^\\\\]+\\\\testing' }, (err, res) => {
+    flatten('./dist/assets/vendor', { root: true, ignore: '@angular\\/[^\\/]+\\/testing' }, (err, res) => {
         if (err) console.error(err)
         if (res) console.log(res)
     })
